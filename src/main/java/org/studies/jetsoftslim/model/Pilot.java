@@ -1,6 +1,8 @@
 package org.studies.jetsoftslim.model;
 
-public class Pilot {
+import org.studies.jetsoftslim.application.Entity;
+
+public class Pilot implements Entity {
 
     private Long id;
     private String firstName;
@@ -13,6 +15,7 @@ public class Pilot {
         this.hoursOfExperience = hoursOfExperience;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

@@ -1,6 +1,8 @@
 package org.studies.jetsoftslim.model;
 
-public class Route {
+import org.studies.jetsoftslim.application.Entity;
+
+public class Route implements Entity {
 
     private String sourceCityName;
     private String destinationCityName;
@@ -34,5 +36,15 @@ public class Route {
 
     public void setDestinationCityName(String destinationCityName) {
         this.destinationCityName = destinationCityName;
+    }
+
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+
     }
 }

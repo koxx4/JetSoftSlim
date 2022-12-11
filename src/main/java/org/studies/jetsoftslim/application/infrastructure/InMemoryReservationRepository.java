@@ -6,14 +6,14 @@ import org.studies.jetsoftslim.model.Reservation;
 
 import java.util.List;
 
-public class InMemoryReservationRepository implements ReservationRepository {
+public class InMemoryReservationRepository extends InMemoryRepository<Reservation> implements ReservationRepository {
 
     private List<Reservation> reservationList;
 
     private EntityIdGenerator idGenerator;
 
     public InMemoryReservationRepository(EntityIdGenerator idGenerator) {
-        this.idGenerator = idGenerator;
+        super(idGenerator);
     }
 
     @Override

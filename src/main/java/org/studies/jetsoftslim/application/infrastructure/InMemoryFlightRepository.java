@@ -8,16 +8,16 @@ import org.studies.jetsoftslim.model.Route;
 import org.studies.jetsoftslim.model.Vehicle;
 
 import java.util.List;
+import java.util.Optional;
 
-public class InMemoryFlightRepository implements FlightRepository {
+public class InMemoryFlightRepository extends InMemoryRepository<Flight> implements FlightRepository {
 
-    private List<Flight> flightList;
-    private List<Pilot> pilotList;
-    private List<Vehicle> vehicleList;
-    private List<Route> routeList;
     private EntityIdGenerator idGenerator;
 
     public InMemoryFlightRepository(EntityIdGenerator idGenerator) {
+
+        super(idGenerator);
+
         this.idGenerator = idGenerator;
     }
 
@@ -54,6 +54,14 @@ public class InMemoryFlightRepository implements FlightRepository {
     @Override
     public void savePilot(Pilot pilot) {
 
+        Optional<Pilot> existingPilot = findPilotById(pilot.getId());
+
+        if (existingPilot.isEmpty()) {
+
+            pilot.setId(idGenerator.generate());
+
+            pilotList.add(pilot);
+        }
     }
 
     @Override
@@ -67,7 +75,13 @@ public class InMemoryFlightRepository implements FlightRepository {
     }
 
     @Override
-    public Flight getFlightById(Long flightId) {
+    public Optional<Flight> findFlightById(Long flightId) {
+        return Optional.empty();
+    }
+
+
+    @Override
+    public Optional<Vehicle> findVehicleById(Long vehicleId) {
         return null;
     }
 }

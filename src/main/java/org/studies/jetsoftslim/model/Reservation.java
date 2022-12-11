@@ -1,7 +1,10 @@
 package org.studies.jetsoftslim.model;
 
-public class Reservation {
+import org.studies.jetsoftslim.application.Entity;
 
+public class Reservation implements Entity {
+
+    private Long id;
     private String clientFirstName;
     private String clientLastName;
     private CharSequence clientPassword;
@@ -56,5 +59,15 @@ public class Reservation {
 
     public void setFlight(Flight flight) {
         this.flight = flight;
+    }
+
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

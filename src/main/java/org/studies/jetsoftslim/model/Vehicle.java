@@ -1,6 +1,8 @@
 package org.studies.jetsoftslim.model;
 
-public class Vehicle {
+import org.studies.jetsoftslim.application.Entity;
+
+public class Vehicle implements Entity {
 
     private Long id;
     private String modelName;

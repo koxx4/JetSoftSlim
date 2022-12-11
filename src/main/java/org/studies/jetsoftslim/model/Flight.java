@@ -1,9 +1,11 @@
 package org.studies.jetsoftslim.model;
 
+import org.studies.jetsoftslim.application.Entity;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
-public class Flight {
+public class Flight implements Entity {
 
     private Long id;
     private List<Pilot> assignedPilots;
@@ -29,10 +31,12 @@ public class Flight {
         this.arrivalDate = arrivalDate;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

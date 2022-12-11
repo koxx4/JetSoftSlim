@@ -4,10 +4,10 @@ import org.studies.jetsoftslim.application.EntityIdGenerator;
 
 public class GlobalEntityIdGenerator implements EntityIdGenerator {
 
-    private Long globalIdCounter;
+    private Long globalIdCounter = 0L;
 
     @Override
     public Long generate() {
-        return null;
+        return ++globalIdCounter;
     }
 }
