@@ -2,14 +2,16 @@ package org.studies.jetsoftslim.application;
 
 import org.studies.jetsoftslim.controller.FlightController;
 import org.studies.jetsoftslim.controller.ReservationController;
-import org.studies.jetsoftslim.model.Pilot;
+import org.studies.jetsoftslim.model.*;
 
 public class Program {
 
+    private Repository<Flight> flightRepository;
+    private Repository<Pilot> pilotRepository;
+    private Repository<Vehicle> vehicleRepository;
+    private Repository<Reservation> reservationRepository;
     private FlightController flightController;
-    private FlightRepository flightRepository;
     private ReservationController reservationController;
-    private ReservationRepository reservationRepository;
 
     public static void main(String[] args) {
 
@@ -17,9 +19,10 @@ public class Program {
     }
 
     public void generatePilots() {
+
         Pilot pilot1 = new Pilot("Piotr", "Wilk", 6900);
 
-        flightRepository.savePilot(pilot1);
+        pilotRepository.save(pilot1);
     }
 
     public void generateVehicles() {

@@ -4,13 +4,16 @@ import org.studies.jetsoftslim.application.Entity;
 import org.studies.jetsoftslim.application.EntityIdGenerator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
+
 abstract class InMemoryRepository<T extends Entity> {
 
-    protected Map<Long, T> entities;
-    protected EntityIdGenerator idGenerator;
+    protected final Map<Long, T> entities;
+    protected final EntityIdGenerator idGenerator;
 
     protected InMemoryRepository(EntityIdGenerator idGenerator) {
 
@@ -25,11 +28,21 @@ abstract class InMemoryRepository<T extends Entity> {
 
     public void save(T entity) {
 
+        if (isNull(entity.getId())) {
+
+            entity.setId(idGenerator.generate());
+        }
+
         entities.put(entity.getId(), entity);
     }
 
-    public void delete(T entity) {
+    public void deleteById(Long id) {
 
-        entities.remove(entity.getId());
+        entities.remove(id);
+    }
+
+    public List<T> getAll() {
+
+        return entities.values().stream().toList();
     }
 }

@@ -1,23 +1,24 @@
 package org.studies.jetsoftslim.model;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 public class FlightForm {
 
-    private Long assignedPilotId;
+    private List<Long> assignedPilotIds;
     private Long assignedVehicleId;
-    private String flightName;
     private String destinationCity;
     private String sourceCity;
+    private String flightName;
     private ZonedDateTime departureDate;
     private ZonedDateTime arrivalDate;
 
-    public Long getAssignedPilotId() {
-        return assignedPilotId;
+    public List<Long> getAssignedPilotIds() {
+        return assignedPilotIds;
     }
 
-    public void setAssignedPilotId(Long assignedPilotId) {
-        this.assignedPilotId = assignedPilotId;
+    public void setAssignedPilotIds(List<Long> assignedPilotIds) {
+        this.assignedPilotIds = assignedPilotIds;
     }
 
     public Long getAssignedVehicleId() {
@@ -36,22 +37,6 @@ public class FlightForm {
         this.flightName = flightName;
     }
 
-    public String getDestinationCity() {
-        return destinationCity;
-    }
-
-    public void setDestinationCity(String destinationCity) {
-        this.destinationCity = destinationCity;
-    }
-
-    public String getSourceCity() {
-        return sourceCity;
-    }
-
-    public void setSourceCity(String sourceCity) {
-        this.sourceCity = sourceCity;
-    }
-
     public ZonedDateTime getDepartureDate() {
         return departureDate;
     }
@@ -66,5 +51,21 @@ public class FlightForm {
 
     public void setArrivalDate(ZonedDateTime arrivalDate) {
         this.arrivalDate = arrivalDate;
+    }
+
+    public String getDestinationCity() {
+        return destinationCity;
+    }
+
+    public void setDestinationCity(String destinationCity) {
+        this.destinationCity = destinationCity;
+    }
+
+    public String getSourceCity() {
+        return sourceCity;
+    }
+
+    public void setSourceCity(String sourceCity) {
+        this.sourceCity = sourceCity;
     }
 }

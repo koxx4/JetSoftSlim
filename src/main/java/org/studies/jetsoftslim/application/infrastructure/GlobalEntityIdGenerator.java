@@ -8,6 +8,7 @@ public class GlobalEntityIdGenerator implements EntityIdGenerator {
 
     @Override
     public Long generate() {
+
         return ++globalIdCounter;
     }
 }

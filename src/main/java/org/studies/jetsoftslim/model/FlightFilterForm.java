@@ -9,7 +9,7 @@ public class FlightFilterForm {
     private String sourceCityName;
     private ZonedDateTime departureDate;
     private ZonedDateTime arrivalDate;
-    private boolean active;
+    private Boolean active;
     private String vehicleModelName;
 
     public String getFlightName() {
@@ -52,11 +52,11 @@ public class FlightFilterForm {
         this.arrivalDate = arrivalDate;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

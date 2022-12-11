@@ -15,6 +15,7 @@ public class Reservation implements Entity {
                        String clientLastName,
                        CharSequence clientPassword,
                        Flight flight) {
+
         this.clientFirstName = clientFirstName;
         this.clientLastName = clientLastName;
         this.clientPassword = clientPassword;

@@ -23,6 +23,7 @@ public class Flight implements Entity {
                   Route route,
                   ZonedDateTime departureDate,
                   ZonedDateTime arrivalDate) {
+
         this.assignedPilots = assignedPilots;
         this.assignedVehicle = assignedVehicle;
         this.flightName = flightName;
