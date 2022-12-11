@@ -14,7 +14,6 @@ public class Flight {
     private boolean active;
 
     public Flight(
-            FlightId flightId,
             Long assignedPilotId,
             Long assignedVehicleId,
             String flightName,
@@ -22,7 +21,6 @@ public class Flight {
             ZonedDateTime departureDate,
             ZonedDateTime arrivalDate) {
 
-        this.flightId = flightId;
         this.assignedPilotId = assignedPilotId;
         this.assignedVehicleId = assignedVehicleId;
         this.flightName = flightName;
