@@ -12,6 +12,7 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class FlightController {
 
@@ -36,6 +37,13 @@ public class FlightController {
 
     public void saveFlight(FlightForm flightForm) {
 
+        ValidationResult validationResult = flightFormValidator.validate(flightForm);
+
+        if (validationResult.hasErrors()) {
+
+            throw new IllegalArgumentException("Validation of flight form failed! " + validationResult.getMessage());
+        }
+
         Route route = new Route(flightForm.getSourceCity(), flightForm.getDestinationCity());
 
         Vehicle vehicle = vehicleRepository.findById(flightForm.getAssignedVehicleId())
@@ -48,7 +56,7 @@ public class FlightController {
 
         String flightName = flightForm.getFlightName();
 
-        if (flightName == null || flightName.isBlank()) {
+        if (isBlank(flightName)) {
 
             flightName = flightNumberGenerator.generate(flightForm);
         }
