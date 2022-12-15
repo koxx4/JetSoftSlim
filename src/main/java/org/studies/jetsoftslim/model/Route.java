@@ -1,7 +1,5 @@
 package org.studies.jetsoftslim.model;
 
-import java.util.Objects;
-
 public class Route {
 
     private String sourceCityName;
