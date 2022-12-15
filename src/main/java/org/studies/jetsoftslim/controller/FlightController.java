@@ -1,5 +1,6 @@
 package org.studies.jetsoftslim.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.studies.jetsoftslim.application.FlightNumberGenerator;
 import org.studies.jetsoftslim.application.Repository;
 import org.studies.jetsoftslim.application.infrastructure.exceptions.PilotNotFoundException;
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class FlightController {
 
@@ -56,7 +56,7 @@ public class FlightController {
 
         String flightName = flightForm.getFlightName();
 
-        if (isBlank(flightName)) {
+        if (StringUtils.isBlank(flightName)) {
 
             flightName = flightNumberGenerator.generate(flightForm);
         }
