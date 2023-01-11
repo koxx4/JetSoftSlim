@@ -3,7 +3,11 @@ package org.studies.jetsoftslim.model;
 import org.studies.jetsoftslim.application.Entity;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 public class Flight implements Entity {
 
@@ -108,9 +112,18 @@ public class Flight implements Entity {
 
     public void addPilot(Pilot pilot) {
 
+        if (isNull(assignedPilots)) {
+
+            assignedPilots = new ArrayList<>();
+        }
+
+        assignedPilots.add(pilot);
     }
 
     public void removePilot(Pilot pilot) {
 
+        if (isNull(assignedPilots)) return;
+
+        assignedPilots.remove(pilot);
     }
 }
