@@ -19,6 +19,7 @@ public class Flight implements Entity {
     private ZonedDateTime departureDate;
     private ZonedDateTime arrivalDate;
     private boolean active;
+    private boolean archived;
     private List<Reservation> reservations;
 
     public Flight(List<Pilot> assignedPilots,
@@ -34,6 +35,8 @@ public class Flight implements Entity {
         this.route = route;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
+
+        assignedVehicle.markAsAssignedToFlight();
     }
 
     @Override
@@ -59,7 +62,11 @@ public class Flight implements Entity {
     }
 
     public void setAssignedVehicle(Vehicle assignedVehicle) {
-        this.assignedVehicle = assignedVehicle;
+
+        if (assignedVehicle != null && assignedVehicle.canBeAssignedToFlight()) {
+
+            this.assignedVehicle = assignedVehicle;
+        }
     }
 
     public String getFlightName() {
@@ -99,7 +106,11 @@ public class Flight implements Entity {
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+
+        if (!this.isArchived()) {
+
+            this.active = active;
+        }
     }
 
     public List<Reservation> getReservations() {
@@ -122,8 +133,24 @@ public class Flight implements Entity {
 
     public void removePilot(Pilot pilot) {
 
-        if (isNull(assignedPilots)) return;
+        if (isNull(assignedPilots))
+            return;
+
+        if (!assignedPilots.contains(pilot))
+            return;
 
         assignedPilots.remove(pilot);
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+
+        if (!this.isActive()) {
+
+            this.archived = archived;
+        }
     }
 }

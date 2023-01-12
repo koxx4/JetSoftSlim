@@ -47,6 +47,7 @@ public class FlightController {
         Route route = new Route(flightForm.getSourceCity(), flightForm.getDestinationCity());
 
         Vehicle vehicle = vehicleRepository.findById(flightForm.getAssignedVehicleId())
+                .filter(Vehicle::canBeAssignedToFlight)
                 .orElseThrow(VehicleNotFoundException::new);
 
         List<Pilot> pilots = flightForm.getAssignedPilotIds().stream()
