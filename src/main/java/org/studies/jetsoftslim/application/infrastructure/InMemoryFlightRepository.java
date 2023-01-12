@@ -1,18 +1,13 @@
 package org.studies.jetsoftslim.application.infrastructure;
 
-import org.studies.jetsoftslim.application.FlightRepository;
-import org.studies.jetsoftslim.model.flight.Flight;
-import org.studies.jetsoftslim.model.flight.FlightId;
+import org.studies.jetsoftslim.application.EntityIdGenerator;
+import org.studies.jetsoftslim.application.Repository;
+import org.studies.jetsoftslim.model.Flight;
 
-public class InMemoryFlightRepository implements FlightRepository {
+public class InMemoryFlightRepository extends InMemoryRepository<Flight> implements Repository<Flight> {
 
-    @Override
-    public void saveFlight(Flight flight) {
+    public InMemoryFlightRepository(EntityIdGenerator idGenerator) {
 
-    }
-
-    @Override
-    public void deleteFlightById(FlightId flightId) {
-
+        super(idGenerator);
     }
 }
