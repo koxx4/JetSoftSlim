@@ -1,39 +1,42 @@
 package org.studies.jetsoftslim.application.infrastructure;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.studies.jetsoftslim.application.FlightNameGenerator;
 import org.studies.jetsoftslim.model.FlightForm;
-
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-class RouteBasedFlightNameGeneratorTest {
+@RunWith(Parameterized.class)
+@Category(RouteBasedFlightNameGeneratorTest.class)
+public class RouteBasedFlightNameGeneratorTest {
 
     private FlightNameGenerator flightNameGenerator;
+    @Parameterized.Parameter(0)
+    public FlightForm flightFormParameter;
+    @Parameterized.Parameter(1)
+    public String expectedParameter;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
 
         flightNameGenerator = new RouteBasedFlightNameGenerator();
     }
 
-    @ParameterizedTest
-    @MethodSource("flightFormsWithRoutes")
-    void shouldCreateValidFlightName(FlightForm flightForm, String expected) {
+    @Test
+    public void shouldCreateValidFlightName() {
 
-        String result = flightNameGenerator.generateForFlight(flightForm);
+        String result = flightNameGenerator.generateForFlight(flightFormParameter);
 
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(expectedParameter);
     }
 
     @Test
-    void shouldThrowExceptionWhenFormIsNull() {
+    public void shouldThrowExceptionWhenFormIsNull() {
 
         FlightForm form = null;
 
@@ -43,7 +46,7 @@ class RouteBasedFlightNameGeneratorTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenFormHasEmptyRouteStrings() {
+    public void shouldThrowExceptionWhenFormHasEmptyRouteStrings() {
 
         FlightForm form = new FlightForm();
         form.setSourceCity(" ");
@@ -54,7 +57,8 @@ class RouteBasedFlightNameGeneratorTest {
         });
     }
 
-    private static Stream<Arguments> flightFormsWithRoutes() {
+    @Parameterized.Parameters
+    public static Object[][] flightFormsWithRoutes() {
 
         FlightForm form1 = new FlightForm();
         form1.setSourceCity("Warszawa");
@@ -68,10 +72,10 @@ class RouteBasedFlightNameGeneratorTest {
         form3.setSourceCity("Berlin");
         form3.setDestinationCity("Rzym");
 
-        return Stream.of(
-                Arguments.of(form1, "WARRZY001"),
-                Arguments.of(form2, "BERMAD001"),
-                Arguments.of(form3, "BERRZY001")
-        );
+        return new Object[][] {
+            {form1, "WARRZY001"},
+            {form2, "BERMAD001"},
+            {form3, "BERRZY001"},
+        };
     }
 }
