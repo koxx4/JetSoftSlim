@@ -3,17 +3,28 @@ package org.studies.jetsoftslim.application.infrastructure;
 import org.studies.jetsoftslim.application.FlightNameGenerator;
 import org.studies.jetsoftslim.model.FlightForm;
 
-import static org.apache.commons.lang3.StringUtils.leftPad;
+import static java.util.Objects.isNull;
+import static org.apache.commons.lang3.StringUtils.*;
 
 public class RouteBasedFlightNameGenerator implements FlightNameGenerator {
 
-    private static long counter = 1;
+    private long counter = 1;
 
     @Override
     public String generateForFlight(FlightForm flightForm) {
 
+        if (isNull(flightForm)) {
+
+            throw new IllegalArgumentException();
+        }
+
         String sourceCity = flightForm.getSourceCity();
         String destinationCity = flightForm.getDestinationCity();
+
+        if (isBlank(sourceCity) || isBlank(destinationCity)) {
+
+            throw new IllegalArgumentException();
+        }
 
         String sourceCityCode = sourceCity.substring(0, 3).toUpperCase();
 
@@ -23,11 +34,12 @@ public class RouteBasedFlightNameGenerator implements FlightNameGenerator {
 
         flightNumber = leftPad(flightNumber, 3, '0');
 
-        StringBuilder flightNameBuilder = new StringBuilder()
-                .append(sourceCityCode)
-                .append(destinationCityCode)
-                .append(flightNumber);
+        String flightNameBuilder = sourceCityCode +
+                destinationCityCode +
+                flightNumber;
 
-        return flightNameBuilder.toString();
+        counter++;
+
+        return flightNameBuilder;
     }
 }
