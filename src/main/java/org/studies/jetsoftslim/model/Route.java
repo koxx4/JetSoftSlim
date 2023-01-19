@@ -1,6 +1,4 @@
-package org.studies.jetsoftslim.model.flight;
-
-import java.util.Objects;
+package org.studies.jetsoftslim.model;
 
 public class Route {
 
@@ -27,24 +25,5 @@ public class Route {
 
     public void setDestinationCityName(String destinationCityName) {
         this.destinationCityName = destinationCityName;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-
-        if (this == o)
-            return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        Route route = (Route) o;
-
-        return Objects.equals(sourceCityName, route.sourceCityName) && Objects.equals(destinationCityName, route.destinationCityName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sourceCityName, destinationCityName);
     }
 }
