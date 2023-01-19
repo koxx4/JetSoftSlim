@@ -15,6 +15,6 @@ public class ValidationResult {
     }
 
     public boolean hasErrors() {
-        return true;
+        return errors;
     }
 }

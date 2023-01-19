@@ -7,7 +7,7 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class CityBasedFlightNumberGenerator implements FlightNumberGenerator {
 
-    private Long flightCounter;
+    private Long flightCounter = 1L;
 
     @Override
     public String generate(FlightForm flightForm) {
@@ -27,6 +27,8 @@ public class CityBasedFlightNumberGenerator implements FlightNumberGenerator {
                 .append(sourceCityCode)
                 .append(destinationCityCode)
                 .append(flightNumber);
+
+        flightCounter++;
 
         return flightNameBuilder.toString();
     }

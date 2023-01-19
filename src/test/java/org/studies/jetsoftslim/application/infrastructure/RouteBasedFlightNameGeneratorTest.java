@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 @RunWith(Parameterized.class)
-@Category(RouteBasedFlightNameGeneratorTest.class)
+@Category(ServicesTest.class)
 public class RouteBasedFlightNameGeneratorTest {
 
     private FlightNameGenerator flightNameGenerator;
