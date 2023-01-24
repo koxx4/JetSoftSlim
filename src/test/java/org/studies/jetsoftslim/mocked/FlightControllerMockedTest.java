@@ -1,7 +1,11 @@
 package org.studies.jetsoftslim.mocked;
 
+import mockit.Verifications;
+import mockit.integration.junit5.JMockitExtension;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 import org.studies.jetsoftslim.application.FlightNumberGenerator;
 import org.studies.jetsoftslim.application.Repository;
 import org.studies.jetsoftslim.controller.FlightController;
@@ -15,10 +19,10 @@ import org.studies.jetsoftslim.model.Vehicle;
 import mockit.Expectations;
 import mockit.Injectable;
 import mockit.Tested;
-import org.junit.Test;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 @Category(MockedTest.class)
 public class FlightControllerMockedTest {
@@ -41,38 +45,40 @@ public class FlightControllerMockedTest {
     @Injectable
     private FlightFormValidator flightFormValidator;
 
+    Pilot pilot1;
+    Vehicle vehicle1;
+
+    @Before
+    public void setUp() {
+
+        pilot1 = new Pilot("Piotrek", "Wilczek", 1000);
+        vehicle1 = new Vehicle("AjrBas", 150);
+        vehicle1.markAsReadyToBeAssignedToFlight();
+    }
+
     @Test
-    public void testSaveFlightWithValidInput() {
+    public void testSaveFlightFromFormShouldNotThrowException() {
+
         FlightForm flightForm = new FlightForm();
         flightForm.setSourceCity("New York");
         flightForm.setDestinationCity("London");
-        flightForm.setAssignedVehicleId(1);
+        flightForm.setAssignedVehicleId(1L);
         flightForm.setAssignedPilotIds(Arrays.asList(1L, 2L));
         flightForm.setDepartureDate(ZonedDateTime.now());
         flightForm.setArrivalDate(ZonedDateTime.now().plusHours(8));
 
-        ValidationResult validationResult = new ValidationResult();
-        validationResult.setValid(true);
+        ValidationResult validationResult = new ValidationResult(false, "");
 
         new Expectations() {{
-            flightFormValidator.validate(flightForm);
-            result = validationResult;
-
-            vehicleRepository.findById(1);
-            result = Optional.of(new Vehicle());
-
-            pilotRepository.findById(1);
-            result = Optional.of(new Pilot());
-
-            pilotRepository.findById(2);
-            result = Optional.of(new Pilot());
+            vehicleRepository.findById(anyLong); result = vehicle1;
+            pilotRepository.findById(anyLong); result = pilot1;
         }};
 
         flightController.saveFlight(flightForm);
 
-        new Expectations() {{
-            flightRepository.save(any);
-            times = 1;
+        new Verifications() {{
+            flightFormValidator.validate(withSameInstance(flightForm));
+            flightRepository.save(withInstanceOf(Flight.class));
         }};
     }
 }
